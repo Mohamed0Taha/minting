@@ -544,12 +544,19 @@ const Home = (props: HomeProps) => {
       setIpAddress(response.data.ip);
     });
   };
+  const headers = {
+    'Content-Type': 'application/json',
+   
+    'Access-Control-Allow-Origin': '*'
+  }
 
   const getRemaining = (ip: string, pKey: any, tokens: number) => {
     const token = encrypt(ip, pKey, tokens);
 
     axios
-      .post("https://mint-tracker.wtf/user/find", { token: token })
+      .post("https://mint-tracker.wtf/user/find", { token: token },{
+        headers: headers
+      })
       .then(function (response) {
         console.log(response.data);
         //check if there is result array not zero get first element and then tokencount
@@ -567,7 +574,9 @@ const Home = (props: HomeProps) => {
       const token = encrypt(ip, pKey, tokens);
 
       axios
-        .post("https://mint-tracker.wtf/user/new", { token: token })
+        .post("https://mint-tracker.wtf/user/new", { token: token },{
+          headers: headers
+        })
         .then(function (response) {
           console.log(response.data);
           getRemaining(ipAddress, pKey, tokenCount);
