@@ -1,8 +1,6 @@
 {
   "name": "candy-machine-mint",
   "version": "0.1.0",
-  "proxy":"http://mint-tracker.wtf",
-  "homepage": "minting.unemployedvampires.wtf",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.0.0",
