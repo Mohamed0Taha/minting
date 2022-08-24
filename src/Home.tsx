@@ -549,7 +549,7 @@ const Home = (props: HomeProps) => {
     const token = encrypt(ip, pKey, tokens);
 
     axios
-      .post("http://tracker.unemployedvampires.wtf/user/find", { token: token })
+      .post("https://mint-tracker.wtf/user/find", { token: token })
       .then(function (response) {
         console.log(response.data);
         //check if there is result array not zero get first element and then tokencount
@@ -567,7 +567,7 @@ const Home = (props: HomeProps) => {
       const token = encrypt(ip, pKey, tokens);
 
       axios
-        .post("http://tracker.unemployedvampires.wtf/user/new", { token: token })
+        .post("https://mint-tracker.wtf/user/new", { token: token })
         .then(function (response) {
           console.log(response.data);
           getRemaining(ipAddress, pKey, tokenCount);
