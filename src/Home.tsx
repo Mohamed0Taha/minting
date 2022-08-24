@@ -402,6 +402,7 @@ const Home = (props: HomeProps) => {
             );
           }
           if (status && !status.err) {
+          
             setSetupTxn(setupMint);
             setAlertState({
               open: true,
@@ -456,7 +457,7 @@ const Home = (props: HomeProps) => {
           });
 
           // update front-end amounts
-          createOrUpdate(ipAddress, wallet.publicKey, tokenCount);
+          createOrUpdate(ipAddress,wallet.publicKey,tokenCount)
           displaySuccess(mint.publicKey);
           refreshCandyMachineState("processed");
         } else if (status && !status.err) {
@@ -538,34 +539,31 @@ const Home = (props: HomeProps) => {
       method: "get",
       url: "https://api.ipdata.co/?api-key=570e4d33cb83e2c324886218d3cca1a8cb8d65189429f4c62d077e2f",
       responseType: "stream",
-      headers: headers,
+      
     }).then(function (response) {
       console.log(response.data.ip);
       setIpAddress(response.data.ip);
     });
   };
   const headers = {
-    "Content-Type": "application/json",
-
-    "Access-Control-Allow-Origin": "*",
-  };
+    'Content-Type': 'application/json',
+   
+    'Access-Control-Allow-Origin': '*'
+  }
 
   const getRemaining = (ip: string, pKey: any, tokens: number) => {
     const token = encrypt(ip, pKey, tokens);
 
     axios
-      .post(
-        "https://mint-tracker.wtf/user/find",
-        { token: token },
-        {
-          headers: headers,
-        }
-      )
+      .post("https://mint-tracker.wtf/user/find", { token: token },{
+        headers: headers
+      })
       .then(function (response) {
         console.log(response.data);
         //check if there is result array not zero get first element and then tokencount
-        if (response.data.length === 1) {
-          setTokenCount(response.data[0].tokenCount);
+        if(response.data.length === 1){
+          setTokenCount(response.data[0].tokenCount)
+          
         }
       })
       .catch(function (error) {
@@ -573,25 +571,21 @@ const Home = (props: HomeProps) => {
       });
   };
 
-  const createOrUpdate = (ip: string, pKey: any, tokens: number) => {
-    const token = encrypt(ip, pKey, tokens);
+    const createOrUpdate = (ip: string, pKey: any, tokens: number) => {
+      const token = encrypt(ip, pKey, tokens);
 
-    axios
-      .post(
-        "https://mint-tracker.wtf/user/new",
-        { token: token },
-        {
-          headers: headers,
-        }
-      )
-      .then(function (response) {
-        console.log(response.data);
-        getRemaining(ipAddress, pKey, tokenCount);
-        console.log(tokenCount);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      axios
+        .post("https://mint-tracker.wtf/user/new", { token: token },{
+          headers: headers
+        })
+        .then(function (response) {
+          console.log(response.data);
+          getRemaining(ipAddress, pKey, tokenCount);
+          console.log(tokenCount)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
   };
 
   const encrypt = (ip: string, pKey: any, tokens: number) => {
@@ -606,6 +600,10 @@ const Home = (props: HomeProps) => {
     );
     return token;
   };
+
+
+
+ 
 
   return (
     <main>
