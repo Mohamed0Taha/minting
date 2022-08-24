@@ -9,29 +9,40 @@ import {CandyMachineAccount} from './candy-machine';
 export const CTAButton = styled(Button)`
   display: block !important;
   margin: 0 auto !important;
-  background-color: var(--title-text-color) !important;
-  min-width: 120px !important;
-  font-size: 1em !important;
+  background-color: #E69B31 !important;
+  color: #A4420D !important;
+  min-width: 200px !important;
+  font-size: 1.8em!important;
+  font-weight: bold !important;
 `;
 
 export const MintButton = ({
-                               onMint,
-                               candyMachine,
-                               isMinting,
-                               isEnded,
-                               isActive,
-                               isSoldOut
-                           }: {
+        onMint,
+        candyMachine,
+        isMinting,
+        isEnded,
+        isActive,
+        isSoldOut,
+        tokenCount
+    }: {
     onMint: () => Promise<void>;
     candyMachine?: CandyMachineAccount;
     isMinting: boolean;
     isEnded: boolean;
     isActive: boolean;
     isSoldOut: boolean;
+    tokenCount:number
 }) => {
     const {requestGatewayToken, gatewayStatus} = useGateway();
     const [clicked, setClicked] = useState(false);
     const [isVerifying, setIsVerifying] = useState(false);
+    const mintedAll =()=>{
+        if (tokenCount>=5){
+            return true
+        }else{
+            return false
+        }
+    }
 
     useEffect(() => {
         setIsVerifying(false);
@@ -54,7 +65,8 @@ export const MintButton = ({
                 isMinting ||
                 isEnded ||
                 !isActive ||
-                isVerifying
+                isVerifying||
+                mintedAll ()
             }
             onClick={async () => {
                 if (isActive && candyMachine?.state.gatekeeper && gatewayStatus !== GatewayStatus.ACTIVE) {
@@ -68,7 +80,8 @@ export const MintButton = ({
             }}
             variant="contained"
         >
-            {!candyMachine ? (
+            {mintedAll()? "Maximum Minted" :
+            !candyMachine ? (
                 "CONNECTING..."
             ) : candyMachine?.state.isSoldOut || isSoldOut ? (
                 'SOLD OUT'
