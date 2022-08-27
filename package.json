@@ -2,6 +2,7 @@
   "name": "candy-machine-mint",
   "version": "0.1.0",
   "private": true,
+  "homepage": "minting.unemployedvampires.wtf",
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/runtime": "7.x",

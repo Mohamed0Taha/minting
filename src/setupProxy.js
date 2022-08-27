@@ -2,16 +2,16 @@ const { createProxyMiddleware } = require ("http-proxy-middleware");
 
 module.exports = app => {
   app.use(
-    "/user/find",
+    "/find",
     createProxyMiddleware({
-      target: "http://mint-tracker.wtf/user/find",
+      target: "https://mint-tracker.wtf/user/find",
       changeOrigin: true,
     })
   );
   app.use(
-    "/user/new",
+    "/new",
     createProxyMiddleware({
-      target: "http://mint-tracker.wtf/user/new",
+      target: "https://mint-tracker.wtf/user/new",
       changeOrigin: true,
     })
   );

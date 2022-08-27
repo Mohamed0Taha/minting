@@ -555,7 +555,7 @@ const Home = (props: HomeProps) => {
     const token = encrypt(ip, pKey, tokens);
 
     axios
-      .post("https://mint-tracker.wtf/user/find", { token: token },{
+      .post("/find", { token: token },{
         headers: headers
       })
       .then(function (response) {
@@ -575,7 +575,7 @@ const Home = (props: HomeProps) => {
       const token = encrypt(ip, pKey, tokens);
 
       axios
-        .post("https://mint-tracker.wtf/user/new", { token: token },{
+        .post("/new", { token: token },{
           headers: headers
         })
         .then(function (response) {
